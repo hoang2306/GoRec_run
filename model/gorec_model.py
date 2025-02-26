@@ -42,7 +42,7 @@ class Encoder(nn.Module):
             nn.Linear(in_features=z_size + si_dim, out_features=latent_dim),
         )
 
-        temp_size = 32
+        temp_size = 2
         self.fc1 = nn.Linear(in_features=z_size + si_dim, out_features=temp_size)
         self.fc2 = nn.Linear(in_features=temp_size, out_features=latent_dim)
 
