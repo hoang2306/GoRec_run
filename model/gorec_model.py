@@ -73,6 +73,10 @@ class Encoder(nn.Module):
         print('WARM before go fc: ', warm)
         print(f'WARM SHAPE: {warm.shape}')
 
+        psu_weight = np.random.randn(5184, 64)
+
+        print(f'mat mul test: {warm @ torch.tensor(psu_weight).to(torch.float32).cuda()}')
+
         print(f'nan value in WARM: {torch.isnan(warm).sum()}')
         print(torch.max(warm), torch.min(warm))
         
