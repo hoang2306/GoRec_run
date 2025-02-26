@@ -40,7 +40,7 @@ class Encoder(nn.Module):
         # out size: 64  
         self.fc = nn.Sequential(
             nn.Linear(in_features=z_size + si_dim, out_features=2000),
-            nn.BatchNorm1d(num_features=200),
+            nn.BatchNorm1d(num_features=2000),
             nn.Linear(2000, 1000),
             nn.BatchNorm1d(num_features=1000),
             nn.Linear(1000, 500),
