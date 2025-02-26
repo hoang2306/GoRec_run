@@ -77,6 +77,7 @@ class Encoder(nn.Module):
 
         # normalize 
         warm = F.normalize(warm, p=2, dim=1)
+        print(f'NORMALIZE WARM: {warm}')    
 
         # warm = self.fc(warm)
         warm_1 = self.fc1(warm)
