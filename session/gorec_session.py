@@ -87,7 +87,8 @@ class GoRec_session(object):
 
             print(f'rec_loss: {rec_loss}, uni_loss: {uni_loss}, kl_loss: {kl_loss}')
 
-            loss = rec_loss + kl_loss + uni_loss
+            # loss = rec_loss + kl_loss + uni_loss
+            loss = rec_loss + uni_loss
 
             self.optimizer.zero_grad()
             loss.backward()
