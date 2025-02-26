@@ -113,6 +113,8 @@ class GoRec(nn.Module):
             # encode
             mu, log_variances, mu_zgc, log_variances_zgc = self.encoder(warm, side_information)
 
+            print(f'LOG_VARIANCES: {log_variances} ')
+
             # we need true variance not log
             variances = torch.exp(log_variances * 0.5)
             variances_zgc = torch.exp(log_variances_zgc * 0.5)
@@ -123,7 +125,7 @@ class GoRec(nn.Module):
 
             # shift and scale using mean and variances
             print(f'SAMPLE_FROM_NORMAL: {sample_from_normal}')
-            print(f'VARIANCES: {variances}')
+            print(f'VARIANCES: {variances}') 
             z = sample_from_normal * variances + mu
             zgc = sample_from_normal_zgc * variances_zgc + mu_zgc
 
