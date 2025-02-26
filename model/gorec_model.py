@@ -75,6 +75,9 @@ class Encoder(nn.Module):
         # clamp to avoid nan
         warm = torch.clamp(warm, min=-1e6, max=1e6)
 
+        # normalize 
+        warm = F.normalize(warm, p=2, dim=1)
+
         # warm = self.fc(warm)
         warm_1 = self.fc1(warm)
         print(f'WARM after go fc1: {warm_1}')
