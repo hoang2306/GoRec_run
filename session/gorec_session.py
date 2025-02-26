@@ -79,7 +79,7 @@ class GoRec_session(object):
             # normalize z and zgc
             z = F.log_softmax(z, dim=1)
             zgc = zgc + 1e-8
-            zgc = zgc / zgc.sum(dim=1, keepdim=True)
+            # zgc = zgc / zgc.sum(dim=1, keepdim=True)
 
             kl_loss = self.criterion_kl(z, zgc)
             # print(f'z: {z}, zgc: {zgc}')
