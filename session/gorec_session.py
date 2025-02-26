@@ -80,8 +80,8 @@ class GoRec_session(object):
             z = F.log_softmax(z, dim=1)
             zgc = zgc / zgc.sum(dim=1, keepdim=True)
 
-            kl_loss = self.criterion_kl(z, zgc)
-            # print(f'z: {z}, zgc: {zgc}')
+            # kl_loss = self.criterion_kl(z, zgc)
+            print(f'z: {z}, zgc: {zgc}')
 
             print(f'nan value in z: {torch.isnan(z).sum()}')
             print(f'nan value in zgc: {torch.isnan(zgc).sum()}')
