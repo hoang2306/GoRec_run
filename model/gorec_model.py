@@ -128,6 +128,7 @@ class GoRec(nn.Module):
             # decode tensor
             side_information = self.dropout(side_information)
             rec_warm = self.decoder(z, side_information)
+            print(f'REC_WARM IN FORWARD MODEL: {rec_warm}')
 
             return rec_warm, mu, log_variances, z, zgc
         else:
