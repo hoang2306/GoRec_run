@@ -122,6 +122,7 @@ class GoRec(nn.Module):
             sample_from_normal_zgc = Variable(torch.randn(len(warm), self.z_size).to(self.env.device), requires_grad=True)
 
             # shift and scale using mean and variances
+            print(f'SAMPLE_FROM_NORMAL: {sample_from_normal}')
             z = sample_from_normal * variances + mu
             zgc = sample_from_normal_zgc * variances_zgc + mu_zgc
 
