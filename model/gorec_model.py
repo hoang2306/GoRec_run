@@ -36,6 +36,7 @@ class Encoder(nn.Module):
         #                         # nn.Tanh()
         #                         )
         self.fc = nn.Linear(in_features=z_size + si_dim, out_features=latent_dim)
+        nn.init.kaiming_uniform_(self.fc.weight, nonlinearity='relu')
 
         self.l_mu = nn.Linear(in_features= self.size, out_features=z_size)
         self.l_var = nn.Linear(in_features= self.size, out_features=z_size)
