@@ -53,6 +53,9 @@ class Encoder(nn.Module):
         warm = torch.cat((side_information, warm), 1)
         print('WARM before go fc: ', warm)
         print(f'WARM SHAPE: {warm.shape}')
+
+        print(f'nan value in WARM: {torch.isnan(warm).sum()}')
+        print(torch.max(warm), torch.min(warm))
         
         # clamp to avoid nan
         warm = torch.clamp(warm, min=-1e6, max=1e6)
