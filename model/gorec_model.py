@@ -50,6 +50,7 @@ class Encoder(nn.Module):
 
         warm = torch.cat((side_information, warm), 1)
         print('WARM before go fc: ', warm)
+        print(f'WARM SHAPE: {warm.shape}')
         warm = self.fc(warm)
         mu = self.l_mu(warm)
         print(f'WARM before go l_var: {warm}')
