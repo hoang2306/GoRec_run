@@ -52,6 +52,7 @@ class GoRec_session(object):
             rec_warm, mu, log_variances, z, zgc = self.model(warm, side_information)
 
             rec_loss = self.criterion_mse(rec_warm, warm.to(self.env.device))
+            print(f'rec_loss: {rec_loss}')
             uni_loss = self.criterion_uni(mu)
             uni_loss= self.env.args.uni_coeff * uni_loss
             kl_loss = self.criterion_kl(z, zgc)
