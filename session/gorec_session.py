@@ -49,6 +49,7 @@ class GoRec_session(object):
             warm = self.dataset.item_emb[indexs].to(self.env.device)
             side_information = torch.tensor(self.dataset.feature[indexs], dtype=torch.float32).to(self.env.device)
             side_information = torch.nn.functional.normalize(side_information)
+            print(f'side information: {side_information}')
             rec_warm, mu, log_variances, z, zgc = self.model(warm, side_information)
 
             rec_loss = self.criterion_mse(rec_warm, warm.to(self.env.device))
