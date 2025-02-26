@@ -164,7 +164,7 @@ class GoRec(nn.Module):
             # encode
             mu, log_variances, mu_zgc, log_variances_zgc = self.encoder(warm, side_information)
 
-            print(f'LOG_VARIANCES: {log_variances} ')
+            # print(f'LOG_VARIANCES: {log_variances} ')
 
             # we need true variance not log
             variances = torch.exp(log_variances * 0.5)
@@ -175,16 +175,16 @@ class GoRec(nn.Module):
             sample_from_normal_zgc = Variable(torch.randn(len(warm), self.z_size).to(self.env.device), requires_grad=True)
 
             # shift and scale using mean and variances
-            print(f'SAMPLE_FROM_NORMAL: {sample_from_normal}')
-            print(f'VARIANCES: {variances}') 
+            # print(f'SAMPLE_FROM_NORMAL: {sample_from_normal}')
+            # print(f'VARIANCES: {variances}') 
             z = sample_from_normal * variances + mu
             zgc = sample_from_normal_zgc * variances_zgc + mu_zgc
 
             # decode tensor
             side_information = self.dropout(side_information)
-            print(f'Z IN FORWARD MODEL: {z}')
+            # print(f'Z IN FORWARD MODEL: {z}')
             rec_warm = self.decoder(z, side_information)
-            print(f'REC_WARM IN FORWARD MODEL: {rec_warm}')
+            # print(f'REC_WARM IN FORWARD MODEL: {rec_warm}')
 
             return rec_warm, mu, log_variances, z, zgc
         else:
