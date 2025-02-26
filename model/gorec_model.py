@@ -43,6 +43,7 @@ class Encoder(nn.Module):
         warm = self.fc(warm)
         mu = self.l_mu(warm)
         logvar = self.l_var(warm)
+        print(f'LOGVAR in encoder forward: {logvar}')
         return mu, logvar, mu_zgc, logvar_zgc
 
 
