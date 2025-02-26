@@ -30,9 +30,9 @@ class Encoder(nn.Module):
         # print(f'LATENT_DIM: {latent_dim}') # 64
 
 
-        # self.fc = nn.Sequential(nn.Linear(in_features=(z_size + si_dim), out_features=(latent_dim), bias=False),
-        #                         nn.BatchNorm1d(num_features=latent_dim),
-        #                         nn.Tanh())
+        self.fc = nn.Sequential(nn.Linear(in_features=(z_size + si_dim), out_features=(latent_dim), bias=False),
+                                nn.BatchNorm1d(num_features=latent_dim),
+                                nn.Tanh())
         # self.fc = nn.Sequential(nn.Linear(in_features=z_size + si_dim, out_features=latent_dim)
         #                         # nn.BatchNorm1d(num_features=latent_dim),
         #                         # nn.Tanh()
@@ -40,9 +40,9 @@ class Encoder(nn.Module):
 
         # in size: 5184 -> 2000 
         # out size: 64  
-        self.fc = nn.Sequential(
-            nn.Linear(in_features=z_size + si_dim, out_features=latent_dim),
-        )
+        # self.fc = nn.Sequential(
+        #     nn.Linear(in_features=z_size + si_dim, out_features=latent_dim),
+        # )
 
         temp_size = 2
         self.fc1 = nn.Linear(in_features=z_size + si_dim, out_features=temp_size)
@@ -64,15 +64,15 @@ class Encoder(nn.Module):
 
         
         warm = torch.cat((side_information, warm), 1)
-        print('WARM before go fc: ', warm)
-        print(f'WARM SHAPE: {warm.shape}')
+        # print('WARM before go fc: ', warm)
+        # print(f'WARM SHAPE: {warm.shape}')
 
-        psu_weight = np.random.randn(5184, 64)
+        # psu_weight = np.random.randn(5184, 64)
 
-        print(f'mat mul test: {warm @ torch.tensor(psu_weight).to(torch.float32).cuda()}')
+        # print(f'mat mul test: {warm @ torch.tensor(psu_weight).to(torch.float32).cuda()}')
 
-        print(f'nan value in WARM: {torch.isnan(warm).sum()}')
-        print(torch.max(warm), torch.min(warm))
+        # print(f'nan value in WARM: {torch.isnan(warm).sum()}')
+        # print(torch.max(warm), torch.min(warm))
         
         # clamp to avoid nan
         # warm = torch.clamp(warm, min=-1e6, max=1e6)
@@ -91,9 +91,9 @@ class Encoder(nn.Module):
         # print(f'warm shape: {warm.shape}')
 
         mu = self.l_mu(warm)
-        print(f'WARM before go l_var: {warm}')
+        # print(f'WARM before go l_var: {warm}')
         logvar = self.l_var(warm)
-        print(f'LOGVAR in encoder forward: {logvar}')
+        # print(f'LOGVAR in encoder forward: {logvar}')
         return mu, logvar, mu_zgc, logvar_zgc
 
 

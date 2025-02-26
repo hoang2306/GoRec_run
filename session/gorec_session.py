@@ -60,7 +60,7 @@ class GoRec_session(object):
             warm = self.dataset.item_emb[indexs].to(self.env.device)
             side_information = torch.tensor(self.dataset.feature[indexs], dtype=torch.float32).to(self.env.device)
             side_information = torch.nn.functional.normalize(side_information)
-            print(f'side information: {side_information}')
+            # print(f'side information: {side_information}')
 
             # check nan trainable parameter 
             if check_nan_in_model(self.model):
@@ -76,7 +76,7 @@ class GoRec_session(object):
             uni_loss = self.criterion_uni(mu)
             uni_loss= self.env.args.uni_coeff * uni_loss
             kl_loss = self.criterion_kl(z, zgc)
-            print(f'z: {z}, zgc: {zgc}')
+            # print(f'z: {z}, zgc: {zgc}')
 
             print(f'nan value in z: {torch.isnan(z).sum()}')
             print(f'nan value in zgc: {torch.isnan(zgc).sum()}')
