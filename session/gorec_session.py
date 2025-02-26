@@ -78,10 +78,11 @@ class GoRec_session(object):
 
             # normalize z and zgc
             z = F.log_softmax(z, dim=1)
+            zgc = zgc + 1e-8
             zgc = zgc / zgc.sum(dim=1, keepdim=True)
 
             kl_loss = self.criterion_kl(z, zgc)
-            print(f'z: {z}, zgc: {zgc}')
+            # print(f'z: {z}, zgc: {zgc}')
 
             print(f'nan value in z: {torch.isnan(z).sum()}')
             print(f'nan value in zgc: {torch.isnan(zgc).sum()}')
@@ -92,8 +93,8 @@ class GoRec_session(object):
 
             print(f'rec_loss: {rec_loss}, uni_loss: {uni_loss}, kl_loss: {kl_loss}')
 
-            # loss = rec_loss + kl_loss + uni_loss
-            loss = rec_loss + uni_loss
+            loss = rec_loss + kl_loss + uni_loss
+            # loss = rec_loss + uni_loss
 
             self.optimizer.zero_grad()
             loss.backward()
