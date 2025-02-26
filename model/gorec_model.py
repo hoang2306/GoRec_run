@@ -42,6 +42,10 @@ class Encoder(nn.Module):
             nn.Linear(in_features=z_size + si_dim, out_features=latent_dim),
         )
 
+        temp_size = 3000
+        self.fc1 = nn.Linear(in_features=z_size + si_dim, out_features=temp_size)
+        self.fc2 = nn.Linear(in_features=temp_size, out_features=latent_dim)
+
         # nn.init.kaiming_uniform_(self.fc.weight, nonlinearity='relu')
 
         self.l_mu = nn.Linear(in_features= self.size, out_features=z_size)
@@ -71,7 +75,15 @@ class Encoder(nn.Module):
         # clamp to avoid nan
         warm = torch.clamp(warm, min=-1e6, max=1e6)
 
-        warm = self.fc(warm)
+        # warm = self.fc(warm)
+        warm_1 = self.fc1(warm)
+        print(f'WARM after go fc1: {warm_1}')
+        print(f'warm1 shape: {warm_1.shape}')
+        warm = self.fc2(warm_1)
+
+        print(f'WARM after go fc2: {warm}')
+        print(f'warm shape: {warm.shape}')
+
         mu = self.l_mu(warm)
         print(f'WARM before go l_var: {warm}')
         logvar = self.l_var(warm)
