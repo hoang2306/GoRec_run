@@ -39,22 +39,10 @@ class Encoder(nn.Module):
         # in size: 5184 -> 2000 
         # out size: 64  
         self.fc = nn.Sequential(
-            nn.Linear(in_features=z_size + si_dim, out_features=2000),
-            nn.BatchNorm1d(num_features=2000),
-            nn.Linear(2000, 1000),
-            nn.BatchNorm1d(num_features=1000),
-            nn.Linear(1000, 500),
-            nn.BatchNorm1d(num_features=500),
-            nn.Linear(500, 200),
-            nn.BatchNorm1d(num_features=200),
-            nn.Linear(200, 100),
-            nn.BatchNorm1d(num_features=100),
-            nn.Linear(100, 64),
-            nn.BatchNorm1d(num_features=64),
-            nn.Tanh()
+            nn.Linear(in_features=z_size + si_dim, out_features=latent_dim),
         )
 
-        # nn.init.kaiming_uniform_(self.fc.weight, nonlinearity='relu')
+        nn.init.kaiming_uniform_(self.fc.weight, nonlinearity='relu')
 
         self.l_mu = nn.Linear(in_features= self.size, out_features=z_size)
         self.l_var = nn.Linear(in_features= self.size, out_features=z_size)
