@@ -77,7 +77,12 @@ class GoRec_session(object):
             uni_loss= self.env.args.uni_coeff * uni_loss
             kl_loss = self.criterion_kl(z, zgc)
             print(f'z: {z}, zgc: {zgc}')
+
+            print(f'nan value in z: {torch.isnan(z).sum()}')
+            print(f'nan value in zgc: {torch.isnan(zgc).sum()}')
+
             print(f'kl_loss: {kl_loss}')
+
             kl_loss = self.env.args.kl_coeff * kl_loss
 
             print(f'rec_loss: {rec_loss}, uni_loss: {uni_loss}, kl_loss: {kl_loss}')
