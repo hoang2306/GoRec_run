@@ -36,6 +36,7 @@ class Encoder(nn.Module):
         #                         # nn.Tanh()
         #                         )
         self.fc = nn.Linear(in_features=z_size + si_dim, out_features=latent_dim)
+
         self.l_mu = nn.Linear(in_features= self.size, out_features=z_size)
         self.l_var = nn.Linear(in_features= self.size, out_features=z_size)
 
@@ -48,9 +49,14 @@ class Encoder(nn.Module):
         mu_zgc = self.l_mu_zgc(side_information)
         logvar_zgc = self.l_var_zgc(side_information)
 
+        
         warm = torch.cat((side_information, warm), 1)
         print('WARM before go fc: ', warm)
         print(f'WARM SHAPE: {warm.shape}')
+        
+        # clamp to avoid nan
+        warm = torch.clamp(warm, min=-1e6, max=1e6)
+
         warm = self.fc(warm)
         mu = self.l_mu(warm)
         print(f'WARM before go l_var: {warm}')
