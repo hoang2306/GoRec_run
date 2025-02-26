@@ -38,7 +38,7 @@ class GoRec_session(object):
         # self.criterion_infonce = criterion.InfoNCE(env.args.ssl_temp)
         self.criterion_l2 = criterion.l2_regularization
         self.criterion_uni = criterion.uniformity
-        self.criterion_kl = torch.nn.KLDivLoss(reduction='batchmean')
+        self.criterion_kl = torch.nn.KLDivLoss()
         self.early_stop = 0
         self.best_epoch = 0
         self.total_epoch = 0
@@ -75,6 +75,11 @@ class GoRec_session(object):
             # print(f'rec_loss: {rec_loss}')
             uni_loss = self.criterion_uni(mu)
             uni_loss= self.env.args.uni_coeff * uni_loss
+
+            # normalize z and zgc
+            z = F.log_softmax(z, dim=1)
+            zgc = zgc / zgc.sum(dim=1, keepdim=True)
+
             kl_loss = self.criterion_kl(z, zgc)
             # print(f'z: {z}, zgc: {zgc}')
 
@@ -87,8 +92,8 @@ class GoRec_session(object):
 
             print(f'rec_loss: {rec_loss}, uni_loss: {uni_loss}, kl_loss: {kl_loss}')
 
-            # loss = rec_loss + kl_loss + uni_loss
-            loss = rec_loss + uni_loss
+            loss = rec_loss + kl_loss + uni_loss
+            # loss = rec_loss + uni_loss
 
             self.optimizer.zero_grad()
             loss.backward()
