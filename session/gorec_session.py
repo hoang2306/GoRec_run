@@ -63,9 +63,9 @@ class GoRec_session(object):
             # print(f'side information: {side_information}')
 
             # check nan trainable parameter 
-            if check_nan_in_model(self.model):
-                print("⚠️ NaN detected in model parameters. Skipping batch.")
-                continue
+            # if check_nan_in_model(self.model):
+            #     print("⚠️ NaN detected in model parameters. Skipping batch.")
+            #     continue
 
             rec_warm, mu, log_variances, z, zgc = self.model(warm, side_information)
 
@@ -84,14 +84,14 @@ class GoRec_session(object):
             kl_loss = self.criterion_kl(z, zgc)
             # print(f'z: {z}, zgc: {zgc}')
 
-            print(f'nan value in z: {torch.isnan(z).sum()}')
-            print(f'nan value in zgc: {torch.isnan(zgc).sum()}')
+            # print(f'nan value in z: {torch.isnan(z).sum()}')
+            # print(f'nan value in zgc: {torch.isnan(zgc).sum()}')
 
-            print(f'kl_loss: {kl_loss}')
+            # print(f'kl_loss: {kl_loss}')
 
             kl_loss = self.env.args.kl_coeff * kl_loss
 
-            print(f'rec_loss: {rec_loss}, uni_loss: {uni_loss}, kl_loss: {kl_loss}')
+            # print(f'rec_loss: {rec_loss}, uni_loss: {uni_loss}, kl_loss: {kl_loss}')
 
             loss = rec_loss + kl_loss + uni_loss
             # loss = rec_loss + uni_loss
