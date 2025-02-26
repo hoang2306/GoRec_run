@@ -28,7 +28,10 @@ class Encoder(nn.Module):
         print(f'Z_SIZE: {z_size}')
         print(f'SI_DIM: {si_dim}')
         print(f'LATENT_DIM: {latent_dim}')  
-        self.fc = nn.Sequential(nn.Linear(in_features=(z_size + si_dim), out_features=(latent_dim), bias=False),
+        # self.fc = nn.Sequential(nn.Linear(in_features=(z_size + si_dim), out_features=(latent_dim), bias=False),
+        #                         nn.BatchNorm1d(num_features=latent_dim),
+        #                         nn.Tanh())
+        self.fc = nn.Sequential(nn.Linear(in_features=int(z_size + si_dim), out_features=int(latent_dim), bias=False),
                                 nn.BatchNorm1d(num_features=latent_dim),
                                 nn.Tanh())
         self.l_mu = nn.Linear(in_features= self.size, out_features=z_size)
