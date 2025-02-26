@@ -38,7 +38,7 @@ class GoRec_session(object):
         # self.criterion_infonce = criterion.InfoNCE(env.args.ssl_temp)
         self.criterion_l2 = criterion.l2_regularization
         self.criterion_uni = criterion.uniformity
-        self.criterion_kl = torch.nn.KLDivLoss()
+        self.criterion_kl = torch.nn.KLDivLoss(reduction='batchmean', log_target=True)
         self.early_stop = 0
         self.best_epoch = 0
         self.total_epoch = 0
