@@ -123,6 +123,7 @@ class GoRec(nn.Module):
 
             # shift and scale using mean and variances
             print(f'SAMPLE_FROM_NORMAL: {sample_from_normal}')
+            print(f'VARIANCES: {variances}')
             z = sample_from_normal * variances + mu
             zgc = sample_from_normal_zgc * variances_zgc + mu_zgc
 
