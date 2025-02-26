@@ -15,6 +15,17 @@ import matplotlib.pyplot as plt
 import torch.nn.functional as F
 
 
+
+def check_nan_in_model(model):
+    for name, param in model.named_parameters():
+        if param.requires_grad and torch.isnan(param).any():
+            print(f"⚠️ NaN detected in parameter: {name}")
+            return True
+    print("✅ No NaNs found in model parameters.")
+    return False
+
+
+
 class GoRec_session(object):
     def __init__(self, env, model, loader):
         self.env = env
@@ -50,6 +61,12 @@ class GoRec_session(object):
             side_information = torch.tensor(self.dataset.feature[indexs], dtype=torch.float32).to(self.env.device)
             side_information = torch.nn.functional.normalize(side_information)
             print(f'side information: {side_information}')
+
+            # check nan trainable parameter 
+            if check_nan_in_model(self.model):
+                print("⚠️ NaN detected in model parameters. Skipping batch.")
+                continue
+
             rec_warm, mu, log_variances, z, zgc = self.model(warm, side_information)
 
             rec_loss = self.criterion_mse(rec_warm, warm.to(self.env.device))

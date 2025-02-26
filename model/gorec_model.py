@@ -73,20 +73,20 @@ class Encoder(nn.Module):
         print(torch.max(warm), torch.min(warm))
         
         # clamp to avoid nan
-        warm = torch.clamp(warm, min=-1e6, max=1e6)
+        # warm = torch.clamp(warm, min=-1e6, max=1e6)
 
         # normalize 
-        warm = F.normalize(warm, p=2, dim=1)
-        print(f'NORMALIZE WARM: {warm}')    
+        # warm = F.normalize(warm, p=2, dim=1)
+        # print(f'NORMALIZE WARM: {warm}')    
 
-        # warm = self.fc(warm)
-        warm_1 = self.fc1(warm)
-        print(f'WARM after go fc1: {warm_1}')
-        print(f'warm1 shape: {warm_1.shape}')
-        warm = self.fc2(warm_1)
+        warm = self.fc(warm)
+        # warm_1 = self.fc1(warm)
+        # print(f'WARM after go fc1: {warm_1}')
+        # print(f'warm1 shape: {warm_1.shape}')
+        # warm = self.fc2(warm_1)
 
-        print(f'WARM after go fc2: {warm}')
-        print(f'warm shape: {warm.shape}')
+        # print(f'WARM after go fc2: {warm}')
+        # print(f'warm shape: {warm.shape}')
 
         mu = self.l_mu(warm)
         print(f'WARM before go l_var: {warm}')
