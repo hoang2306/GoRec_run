@@ -195,6 +195,9 @@ class GoRec_session(object):
         side_information = torch.tensor(self.dataset.feature, dtype=torch.float32).to(self.env.device)
         side_information = torch.nn.functional.normalize(side_information)
 
+        print(f'item_emb eval: {item_emb.shape}')
+        print(f'side_information eval: {side_information.shape}')
+
         item_emb = self.dataset.cluster_cfmean.to(self.env.device)
         rec_warm = self.model(item_emb, side_information, gen_size=self.dataset.m_item)
         item_emb = rec_warm.detach().cpu().numpy()
