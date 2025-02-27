@@ -71,6 +71,8 @@ class Loader4AE(torch.utils.data.Dataset):
         self.user_emb, self.item_emb = self.load_cf_embedding(self.env.args.pre_model)
         self.cluster_label = np.load(os.path.join(self.env.DATA_PATH, f'cluster_label.npy'))
 
+        print(f'item embed: {self.item_emb.shape}')
+
         cluster_cfmean = []
         for i in range(self.env.args.pre_cluster_num):
             cluster_cfmean.append(self.item_emb[np.where(self.cluster_label==i)].mean(0))
