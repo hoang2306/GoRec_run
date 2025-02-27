@@ -62,6 +62,8 @@ class Encoder(nn.Module):
         mu_zgc = self.l_mu_zgc(side_information)
         logvar_zgc = self.l_var_zgc(side_information)
 
+        print(f'warm: {warm.shape}')
+        print(f'side_information: {side_information}')
         
         warm = torch.cat((side_information, warm), 1)
         # print('WARM before go fc: ', warm)
