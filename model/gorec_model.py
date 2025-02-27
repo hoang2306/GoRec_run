@@ -163,6 +163,9 @@ class GoRec(nn.Module):
         if self.training:
             original = warm
 
+
+            print(f'warm in forward GoRec: {warm.shape}')
+
             # encode
             mu, log_variances, mu_zgc, log_variances_zgc = self.encoder(warm, side_information)
 
