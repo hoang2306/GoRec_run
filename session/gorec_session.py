@@ -60,6 +60,7 @@ class GoRec_session(object):
             warm = self.dataset.item_emb[indexs].to(self.env.device)
             print(f'dataset feature shape: {self.dataset.feature.shape}')
             print(f'image feature shape: {self.dataset.image_feat.shape}')
+            print(f'max indexs: {np.max(indexs)}')
             side_information = torch.tensor(self.dataset.feature[indexs], dtype=torch.float32).to(self.env.device)
             side_information = torch.nn.functional.normalize(side_information)
             # print(f'side information: {side_information}')
