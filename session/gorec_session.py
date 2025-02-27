@@ -58,8 +58,8 @@ class GoRec_session(object):
         all_loss, all_rec_loss, all_uni_loss, all_kl_loss = 0., 0., 0., 0.
         for indexs in self.data_loadr:
             warm = self.dataset.item_emb[indexs].to(self.env.device)
-            print(f'dataset feature shape: {self.dataset.feature.shape}')
-            print(f'image feature shape: {self.dataset.image_feat.shape}')
+            # print(f'dataset feature shape: {self.dataset.feature.shape}')
+            # print(f'image feature shape: {self.dataset.image_feat.shape}')
             print(f'max indexs: {max(indexs)}')
             side_information = torch.tensor(self.dataset.feature[indexs], dtype=torch.float32).to(self.env.device)
             side_information = torch.nn.functional.normalize(side_information)
