@@ -76,7 +76,9 @@ class Loader4AE(torch.utils.data.Dataset):
 
         cluster_cfmean = []
         for i in range(self.env.args.pre_cluster_num):
-            a = self.item_emb[np.where(self.cluster_label==i)].mean(0)
+            b = np.where(self.cluster_label==i)
+            print(f'b: {b}')
+            a = self.item_emb[b].mean(0)
             print(f'a: {a.shape}')
             cluster_cfmean.append(a)
         cluster_cfmean = torch.stack(cluster_cfmean)
