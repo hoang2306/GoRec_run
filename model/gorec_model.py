@@ -198,6 +198,8 @@ class GoRec(nn.Module):
                 z = Variable(torch.randn(gen_size, self.z_size).to(self.env.device), requires_grad=False)
             
             else:
+                print(f'warm in test: {warm.shape}')
+                print(f'side_information: {side_information.shape}')
                 mu, log_variances, _, _ = self.encoder(warm, side_information)
                 # torch.save(mu, os.path.join(self.env.DATA_PATH, f'z_u{self.env.args.uni_coeff}_{self.env.args.dataset}.pt'))
 
