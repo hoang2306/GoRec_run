@@ -14,8 +14,8 @@ class Loader4AE(torch.utils.data.Dataset):
         if env.args.dataset == 'baby':
             self.n_user, self.m_item = 19445, 7050
         elif env.args.dataset == 'clothing':
-            # self.n_user, self.m_item = 39387, 23033 
-            self.n_user, self.m_item = 39387, 22498
+            self.n_user, self.m_item = 39387, 23033 
+            # self.n_user, self.m_item = 39387, 22498
         elif env.args.dataset == 'sports':
             # self.n_user, self.m_item = 35598, 18357
             self.n_user, self.m_item = 35598, 18287
