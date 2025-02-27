@@ -72,6 +72,7 @@ class Loader4AE(torch.utils.data.Dataset):
         self.cluster_label = np.load(os.path.join(self.env.DATA_PATH, f'cluster_label.npy'))
 
         print(f'item embed: {self.item_emb.shape}')
+        print(f'max cluster: {max(self.cluster_label)}')
 
         cluster_cfmean = []
         for i in range(self.env.args.pre_cluster_num):
